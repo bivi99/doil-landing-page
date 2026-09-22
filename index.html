@@ -1,0 +1,1098 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Ðoil — A Lucky Guide for Your New Life in Japan</title>
+    <meta
+      name="description"
+      content="일본 워킹홀리데이·유학·취업. 출국 전부터 귀국 준비까지, 단계별로 안내하는 정착 가이드 앱 Ðoil."
+    />
+    <!-- 본문 서체 : Pretendard (한글·UI 전부) -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
+    <!-- 액센트 서체 : Quicksand (영문·숫자 라벨에만 사용) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- ================= 아이콘 스프라이트 =================
+     아래는 UI 아이콘과 장식용 클로버입니다. 브랜드 로고(캐릭터)는 여기서 제외했고,
+     assets/logo/ 에 넣을 .svg 파일로 교체합니다. #clover 는 장식 전용(얼굴 없음)이라
+     그대로 두셔도 되고, 직접 만드신 클로버로 바꾸셔도 됩니다.
+     ==================================================== -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="clover" viewBox="0 0 200 200">
+        <g fill="currentColor">
+          <circle cx="62" cy="67" r="44" />
+          <circle cx="138" cy="67" r="44" />
+          <circle cx="62" cy="133" r="44" />
+          <circle cx="138" cy="133" r="44" />
+          <circle cx="100" cy="100" r="19" />
+        </g>
+      </symbol>
+      <symbol id="check" viewBox="0 0 24 24">
+        <path
+          d="M20 6 9 17l-5-5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </symbol>
+      <symbol id="dl" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 3v12" />
+          <path d="m7 11 5 5 5-5" />
+          <path d="M4 20h16" />
+        </g>
+      </symbol>
+      <symbol id="home" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.1"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M4 10.5 12 4l8 6.5V19a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z" />
+          <path d="M10 21v-5.5a2 2 0 0 1 4 0V21" />
+        </g>
+      </symbol>
+      <symbol id="cal" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.1"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="3" y="5" width="18" height="16" rx="4" />
+          <path d="M3 10h18M8 3v4M16 3v4" />
+          <path d="m9 15 2 2 4-4" />
+        </g>
+      </symbol>
+      <symbol id="chat" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.1"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M20.5 12.5c0 4-3.8 7-8.5 7a10 10 0 0 1-2.6-.34L4.5 21l1.2-3.6A6.7 6.7 0 0 1 3.5 12.5c0-3.9 3.8-7 8.5-7s8.5 3.1 8.5 7Z"
+          />
+          <path d="M9 12h.01M12 12h.01M15 12h.01" />
+        </g>
+      </symbol>
+      <symbol id="user" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.1"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4.5 20a7.5 7.5 0 0 1 15 0" />
+        </g>
+      </symbol>
+      <symbol id="doc" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.1"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M7 3h7l5 5v11a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 19V5.5A2.5 2.5 0 0 1 7.5 3Z"
+          />
+          <path d="M14 3v5h5" />
+          <path d="m9 14 2 2 4-4" />
+        </g>
+      </symbol>
+      <symbol id="bolt" viewBox="0 0 24 24">
+        <path
+          d="M13.5 2 5 13.5h5.5L9.5 22 19 10.5h-5.7Z"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.1"
+          stroke-linejoin="round"
+          stroke-linecap="round"
+        />
+      </symbol>
+      <symbol id="bell" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.1"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M6 10a6 6 0 1 1 12 0c0 4 1.5 5.5 1.5 5.5h-15S6 14 6 10Z" />
+          <path d="M10.5 19a1.8 1.8 0 0 0 3 0" />
+        </g>
+      </symbol>
+    </svg>
+
+    <div class="progress"><i id="bar"></i></div>
+
+    <!-- ================= NAV (캐릭터 로고만) ================= -->
+    <header class="nav" id="nav">
+      <div class="bar">
+        <a href="#top" class="brand" aria-label="Ðoil 홈">
+          <!-- 로고가 들어갈 부분 -->
+          <!-- 심볼 + 워드마크 결합 가로형 로고 · 그린 버전 · 높이 34px (스크롤 시 30px) -->
+          <img class="brand-logo" src="./logo/logo.svg" alt="logo" />
+        </a>
+        <nav>
+          <a href="#about">브랜드</a>
+          <a href="#features">주요 기능</a>
+          <a href="#how">이용 방법</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <a href="#download" class="btn btn-p btn-sm"
+          ><svg><use href="#dl" /></svg>앱 다운로드</a
+        >
+      </div>
+    </header>
+
+    <!-- ================= HERO ================= -->
+    <main id="top">
+      <section class="hero">
+        <svg
+          class="deco float"
+          style="
+            top: 16%;
+            right: 5%;
+            width: 52px;
+            color: var(--green-hi);
+            opacity: 0.2;
+          "
+        >
+          <use href="#clover" />
+        </svg>
+        <svg
+          class="deco float d1"
+          style="
+            bottom: 14%;
+            left: 3%;
+            width: 86px;
+            color: var(--butter);
+            opacity: 0.26;
+          "
+        >
+          <use href="#clover" />
+        </svg>
+        <svg
+          class="deco float d2"
+          style="
+            top: 56%;
+            right: 43%;
+            width: 32px;
+            color: var(--coral);
+            opacity: 0.24;
+          "
+        >
+          <use href="#clover" />
+        </svg>
+
+        <div class="wrap">
+          <div class="hero-copy">
+            <span class="eyebrow" data-rv
+              ><svg><use href="#clover" /></svg>A Lucky Guide for Your New Life
+              in Japan</span
+            >
+            <h1 data-rv style="transition-delay: 0.08s">
+              일본에서의 첫 걸음에,<br /><em>작은 행운</em>을 드릴게요
+            </h1>
+            <p class="lead" data-rv style="transition-delay: 0.16s">
+              워킹홀리데이 · 유학 · 취업.<br />
+              출국 전부터 귀국 준비까지, Ðoil이
+              <b>해야 할 순서 그대로</b> 안내합니다.
+            </p>
+
+            <div class="stores" data-rv style="transition-delay: 0.24s">
+              <a href="#" class="store" aria-label="App Store에서 다운로드">
+                <span class="si"
+                  ><svg><use href="#dl" /></svg
+                ></span>
+                <span class="st"><b>App Store</b></span>
+              </a>
+              <a
+                href="#"
+                class="store light"
+                aria-label="Google Play에서 다운로드"
+              >
+                <span class="si"
+                  ><svg><use href="#dl" /></svg
+                ></span>
+                <span class="st"><b>Google Play</b></span>
+              </a>
+            </div>
+
+            <div class="chips" data-rv style="transition-delay: 0.34s">
+              <span class="chip"><i></i>정착 체크리스트 <b>120+</b></span>
+              <span class="chip"
+                ><i style="background: var(--coral)"></i>가이드
+                <b>4단계</b> 구성</span
+              >
+              <span class="chip"
+                ><i style="background: var(--sky)"></i>지역 정보 <b>12</b>개
+                도시</span
+              >
+            </div>
+          </div>
+
+          <div
+            class="hero-visual"
+            data-rv="zoom"
+            style="transition-delay: 0.2s"
+          >
+            <div class="blob"></div>
+            <div class="mascot">
+              <!-- 로고가 들어갈 부분 -->
+              <img
+                src="./logo/final_main_logo(ivory).svg"
+                alt="Ðoil 마스코트 도일이"
+              />
+              <!-- 흰색 심볼 버전 · 72×72 · 히어로 마스코트 배지 -->
+            </div>
+            <div class="speech">잘 왔어요! 같이 시작해요 🍀</div>
+
+            <div class="phone">
+              <div class="screen">
+                <div class="status">
+                  <span>9:41</span
+                  ><span class="dots"
+                    ><span></span><span></span><span></span
+                  ></span>
+                </div>
+                <div class="scr-body">
+                  <div class="scr-top">
+                    <span class="av">
+                      <!-- 로고가 들어갈 부분 -->
+                      <img
+                        src="./logo/final_main_logo(ivory).svg"
+                        alt="Ðoil 마스코트 도일이"
+                      />
+                      <!-- 흰색 심볼 버전 · 22×22 · 앱 목업 프로필 아이콘 -->
+                    </span>
+                    <span
+                      ><small>도쿄 · 워킹홀리데이 · 입국 D+14</small
+                      ><strong>안녕하세요, 현비님!</strong></span
+                    >
+                  </div>
+                  <div class="ring-row">
+                    <div class="ring">
+                      <svg viewBox="0 0 56 56">
+                        <circle
+                          cx="28"
+                          cy="28"
+                          r="23"
+                          fill="none"
+                          stroke="rgba(255,255,255,.28)"
+                          stroke-width="7"
+                        />
+                        <circle
+                          cx="28"
+                          cy="28"
+                          r="23"
+                          fill="none"
+                          stroke="#fff"
+                          stroke-width="7"
+                          stroke-linecap="round"
+                          stroke-dasharray="144.5"
+                          stroke-dashoffset="55"
+                        /></svg
+                      ><b>62%</b>
+                    </div>
+                    <div>
+                      <h5>정착 진행률</h5>
+                      <p>초기 정착 단계 · 이번 주 마감 3건</p>
+                    </div>
+                  </div>
+                  <span class="tag">오늘 해야 할 일</span>
+                  <div class="card-mini todo">
+                    <span class="tick on"
+                      ><svg><use href="#check" /></svg
+                    ></span>
+                    <span
+                      ><span class="t">구약소 전입신고 (転入届)</span
+                      ><span class="s">입국 후 14일 이내 · 완료</span></span
+                    >
+                  </div>
+                  <div class="card-mini todo">
+                    <span class="tick"
+                      ><svg><use href="#check" /></svg
+                    ></span>
+                    <span
+                      ><span class="t">국민건강보험 가입</span
+                      ><span class="s">전입신고와 같은 창구에서</span></span
+                    >
+                  </div>
+                  <div class="card-mini todo">
+                    <span class="tick"
+                      ><svg><use href="#check" /></svg
+                    ></span>
+                    <span
+                      ><span class="t">은행 계좌 개설</span
+                      ><span class="s">재류카드 · 인감 준비</span></span
+                    >
+                  </div>
+                  <div
+                    class="card-mini"
+                    style="
+                      display: flex;
+                      gap: 9px;
+                      align-items: center;
+                      background: var(--butter-soft);
+                      box-shadow: none;
+                    "
+                  >
+                    <svg
+                      style="
+                        width: 17px;
+                        height: 17px;
+                        color: #8a6100;
+                        flex: none;
+                      "
+                    >
+                      <use href="#bell" />
+                    </svg>
+                    <span
+                      style="
+                        font-size: 10.5px;
+                        font-weight: 700;
+                        color: #8a6100;
+                      "
+                      >D-3 · 마감 임박한 일정이 있어요</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= MARQUEE ================= -->
+      <div class="marquee" aria-hidden="true">
+        <div class="mq-track">
+          <div class="set">
+            <em>Good Luck</em><svg><use href="#clover" /></svg>
+            <em>はじめの一歩</em><svg><use href="#clover" /></svg>
+            <em>새로운 시작</em><svg><use href="#clover" /></svg>
+            <em>A Little Luck for Your New Beginning</em
+            ><svg><use href="#clover" /></svg> <em>がんばって</em
+            ><svg><use href="#clover" /></svg>
+          </div>
+          <div class="set">
+            <em>Good Luck</em><svg><use href="#clover" /></svg>
+            <em>はじめの一歩</em><svg><use href="#clover" /></svg>
+            <em>새로운 시작</em><svg><use href="#clover" /></svg>
+            <em>A Little Luck for Your New Beginning</em
+            ><svg><use href="#clover" /></svg> <em>がんばって</em
+            ><svg><use href="#clover" /></svg>
+          </div>
+          <div class="set">
+            <em>Good Luck</em><svg><use href="#clover" /></svg>
+            <em>はじめの一歩</em><svg><use href="#clover" /></svg>
+            <em>새로운 시작</em><svg><use href="#clover" /></svg>
+            <em>A Little Luck for Your New Beginning</em
+            ><svg><use href="#clover" /></svg> <em>がんばって</em
+            ><svg><use href="#clover" /></svg>
+          </div>
+        </div>
+      </div>
+      <!-- ================= ABOUT ================= -->
+      <section class="about" id="about">
+        <svg
+          class="deco float d1"
+          style="top: 6%; right: -34px; width: 150px; color: var(--mint)"
+        >
+          <use href="#clover" />
+        </svg>
+        <div class="wrap about-grid">
+          <div class="about-copy">
+            <span class="eyebrow" data-rv="left"
+              ><svg><use href="#clover" /></svg>About Ðoil</span
+            >
+            <h2 data-rv="left" style="transition-delay: 0.08s">
+              낯선 시작은 설레지만,<br />동시에 막막하니까요
+            </h2>
+            <p data-rv="left" style="transition-delay: 0.14s">
+              낯선 국가에서의 새로운 시작은 설렘과 기대만큼이나
+              <strong>정보 부족과 불안함</strong>을 동반합니다. 무엇을, 언제,
+              어디서 해야 하는지 아무도 알려주지 않아 매번 검색하고 메모하며
+              헤매게 됩니다.
+            </p>
+            <p data-rv="left" style="transition-delay: 0.2s">
+              Ðoil은 이러한 사용자가 일본 생활에 보다
+              <strong>쉽고 편안하게 적응</strong>할 수 있도록 필요한 정보를
+              안내하고, 새로운 시작을 응원하는 가이드 역할을 합니다.
+            </p>
+            <p data-rv="left" style="transition-delay: 0.26s">
+              네잎클로버 캐릭터 <strong>도일이</strong>는 “당신의 새로운 해외
+              생활에 행운을 빈다”는 마음을 담고 있어요.
+            </p>
+          </div>
+          <div class="pillars">
+            <div class="pillar" data-rv>
+              <span class="n">01</span>
+              <div>
+                <h4>혼자 헤매지 않도록</h4>
+                <p>
+                  흩어진 행정·생활 정보를 한 곳에 모아, 검색 없이도 다음에 할
+                  일을 바로 알 수 있게 합니다.
+                </p>
+              </div>
+            </div>
+            <div class="pillar" data-rv style="transition-delay: 0.1s">
+              <span class="n">02</span>
+              <div>
+                <h4>순서대로, 놓치지 않게</h4>
+                <p>
+                  기한이 있는 절차는 알림으로. 출국일과 입국일 기준 D-Day로 해야
+                  할 일이 자동 정렬됩니다.
+                </p>
+              </div>
+            </div>
+            <div class="pillar" data-rv style="transition-delay: 0.2s">
+              <span class="n">03</span>
+              <div>
+                <h4>부담 없이, 다정하게</h4>
+                <p>
+                  둥근 형태와 밝은 톤으로 딱딱한 행정 정보를 편안하게. 매일
+                  열어보고 싶은 가이드를 지향합니다.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= BENTO FEATURES ================= -->
+      <section class="features" id="features">
+        <div class="wrap">
+          <div class="sec-head">
+            <span class="eyebrow" data-rv
+              ><svg><use href="#clover" /></svg>Features</span
+            >
+            <h2 data-rv style="transition-delay: 0.06s">
+              다섯 개의 탭으로 <span class="hl">정착 전 과정</span>을
+            </h2>
+            <p data-rv style="transition-delay: 0.12s">
+              홈 · 정착 가이드 · 일정 · 커뮤니티 · 마이. 지금 필요한 화면이 늘
+              한 번의 탭 안에 있습니다.
+            </p>
+          </div>
+
+          <div class="bento">
+            <article class="bx wide hero-b" data-rv>
+              <span class="nav-badge">🏠 홈</span>
+              <div class="f-ico">
+                <svg><use href="#home" /></svg>
+              </div>
+              <h3>오늘 뭘 해야 하는지, 열자마자</h3>
+              <p>
+                오늘 해야 할 일과 정착 진행률, 다음 마감까지 남은 D-Day를 첫
+                화면에서 확인합니다. 내 단계에 맞는 추천 정보도 함께 올라와요.
+              </p>
+              <div class="bento-stat">
+                <div><b>62%</b><small>정착 진행률</small></div>
+                <div><b>D-3</b><small>다음 마감</small></div>
+                <div><b>3건</b><small>오늘 할 일</small></div>
+              </div>
+            </article>
+
+            <article
+              class="bx"
+              data-rv
+              style="
+                transition-delay: 0.08s;
+                --tint: var(--mint);
+                --ic: var(--green-deep);
+              "
+            >
+              <span class="nav-badge">🍀 정착 가이드</span>
+              <div class="f-ico">
+                <svg><use href="#doc" /></svg>
+              </div>
+              <h3>4단계 가이드</h3>
+              <p>
+                출국 전 · 입국 직후 · 초기 정착 · 귀국 준비. 지금 단계만 고르면
+                필요한 절차가 순서대로 펼쳐집니다.
+              </p>
+              <div class="meta">
+                <span>준비물</span><span>진행 방법</span><span>소요 시간</span>
+              </div>
+            </article>
+
+            <article
+              class="bx"
+              data-rv
+              style="
+                transition-delay: 0.16s;
+                --tint: var(--sky-soft);
+                --ic: #1b637f;
+              "
+            >
+              <span class="nav-badge">📅 일정</span>
+              <div class="f-ico">
+                <svg><use href="#cal" /></svg>
+              </div>
+              <h3>체크리스트 &amp; 캘린더</h3>
+              <p>
+                가이드에서 바로 담거나 직접 추가. 날짜와 메모를 남기면 캘린더와
+                마감 임박 목록이 챙겨 줍니다.
+              </p>
+              <div class="meta">
+                <span>체크리스트</span><span>캘린더</span><span>마감 임박</span>
+              </div>
+            </article>
+
+            <article
+              class="bx"
+              data-rv
+              style="
+                transition-delay: 0.06s;
+                --tint: var(--butter-soft);
+                --ic: #8a6100;
+              "
+            >
+              <span class="nav-badge">💬 커뮤니티</span>
+              <div class="f-ico">
+                <svg><use href="#chat" /></svg>
+              </div>
+              <h3>먼저 다녀온 사람들</h3>
+              <p>
+                가이드에 없는 사소한 질문은 여기서. 게시글과 댓글로 지역·시기별
+                실제 경험을 나눕니다.
+              </p>
+              <div class="meta"><span>전체 게시글</span><span>댓글</span></div>
+            </article>
+
+            <article
+              class="bx"
+              data-rv
+              style="
+                transition-delay: 0.14s;
+                --tint: var(--coral-soft);
+                --ic: #9c4522;
+              "
+            >
+              <span class="nav-badge">👤 마이</span>
+              <div class="f-ico">
+                <svg><use href="#user" /></svg>
+              </div>
+              <h3>내 프로필 &amp; 저장함</h3>
+              <p>
+                목적·지역·출국일을 바꾸면 앱 전체가 다시 맞춰집니다. 필요한
+                가이드는 저장해 두고 꺼내 보세요.
+              </p>
+              <div class="meta">
+                <span>내 프로필</span><span>저장한 정보</span><span>설정</span>
+              </div>
+            </article>
+
+            <article
+              class="bx wide"
+              data-rv
+              style="
+                transition-delay: 0.22s;
+                --tint: var(--mint);
+                --ic: var(--green-deep);
+              "
+            >
+              <span class="nav-badge">📚 다루는 정보</span>
+              <div class="f-ico">
+                <svg><use href="#bolt" /></svg>
+              </div>
+              <h3>행정부터 생활까지, 실제로 부딪히는 것들</h3>
+              <p>
+                비자와 초기 자금 같은 출국 전 준비부터 전입신고·재류카드·보험,
+                집과 은행, 동네 생활 정보와 아르바이트까지 다룹니다.
+              </p>
+              <div class="tagcloud">
+                <span>비자 · 초기 자금</span><span>転入届</span
+                ><span>재류카드</span><span>マイナンバー</span>
+                <span>국민건강보험 · 연금</span><span>쉐어하우스 · 보증인</span
+                ><span>계좌 개설</span><span>SIM · 요금제</span>
+                <span>ゴミ 분리배출</span><span>교통 · 병원</span
+                ><span>履歴書 · 면접</span><span>귀국 정리</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= HOW TO USE (scroll driven) ================= -->
+      <section class="how" id="how">
+        <div class="how-track" id="howTrack">
+          <div class="how-sticky">
+            <div class="how-inner">
+              <div class="how-left">
+                <span class="eyebrow"
+                  ><svg><use href="#clover" /></svg>How to use</span
+                >
+                <h2 class="how-title">네 단계면, 준비 끝</h2>
+                <div class="rail" id="rail"><i></i><i></i><i></i><i></i></div>
+                <div class="steps" id="steps">
+                  <div class="step act">
+                    <span class="num">STEP 01<s></s></span>
+                    <h3>정착 프로필을 만들어요</h3>
+                    <p>
+                      회원가입 후 목적(워홀 · 유학 · 취업)과 지역, 출국일을
+                      입력합니다. 상황에 따라 필요한 절차가 완전히 다르기
+                      때문에, 이 프로필을 기준으로 앱 전체가 내게 맞게
+                      재구성돼요.
+                    </p>
+                    <ul>
+                      <li>목적 선택</li>
+                      <li>지역</li>
+                      <li>출국일 · D-Day</li>
+                    </ul>
+                  </div>
+                  <div class="step">
+                    <span class="num">STEP 02<s></s></span>
+                    <h3>정착 가이드에서 지금 단계를 열어요</h3>
+                    <p>
+                      출국 전 · 입국 직후 · 초기 정착 · 귀국 준비 중 현재 단계를
+                      고르면 가이드 목록이 나옵니다. 항목을 열면 상세 정보와
+                      준비물, 진행 방법, 창구 위치까지 한 장으로 정리돼 있어요.
+                    </p>
+                    <ul>
+                      <li>4단계 구성</li>
+                      <li>준비물 목록</li>
+                      <li>현장 일본어</li>
+                    </ul>
+                  </div>
+                  <div class="step">
+                    <span class="num">STEP 03<s></s></span>
+                    <h3>내 할 일로 담아 일정에서 관리해요</h3>
+                    <p>
+                      가이드에서 ‘내 할 일에 추가’를 누르고 날짜와 메모를 남기면
+                      일정에 등록됩니다. 캘린더와 마감 임박 목록이 기한 있는
+                      절차를 대신 기억해 줘요.
+                    </p>
+                    <ul>
+                      <li>가이드에서 추가</li>
+                      <li>직접 추가</li>
+                      <li>마감 알림</li>
+                    </ul>
+                  </div>
+                  <div class="step">
+                    <span class="num">STEP 04<s></s></span>
+                    <h3>완료하면 홈 진행률이 채워져요</h3>
+                    <p>
+                      할 일을 완료 처리하면 홈의 정착 진행률과 D-Day에 바로
+                      반영됩니다. 가이드에 없는 궁금증은 커뮤니티에서 먼저
+                      다녀온 사람들에게 물어보며 남은 과정을 이어가세요.
+                    </p>
+                    <ul>
+                      <li>완료 처리</li>
+                      <li>진행률 반영</li>
+                      <li>커뮤니티</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="how-right">
+                <div class="phone how-phone">
+                  <div class="screen" id="screens">
+                    <!-- SCREEN 1 · 정착 프로필 -->
+                    <div class="scr act">
+                      <div class="status">
+                        <span>9:41</span
+                        ><span class="dots"
+                          ><span></span><span></span><span></span
+                        ></span>
+                      </div>
+                      <div class="scr-body">
+                        <span class="tag">정착 프로필 설정</span>
+                        <h4>어떤 목적으로<br />일본에 가시나요?</h4>
+                        <p class="scr-sub">상황에 맞는 절차만 안내해 드려요</p>
+                        <div class="opt sel">
+                          <span class="ico" style="background: var(--mint)"
+                            >🎒</span
+                          >
+                          <span
+                            ><strong>워킹홀리데이</strong
+                            ><small>1년 체류 · 아르바이트 가능</small></span
+                          >
+                        </div>
+                        <div class="opt">
+                          <span class="ico" style="background: var(--sky-soft)"
+                            >📚</span
+                          >
+                          <span
+                            ><strong>유학</strong
+                            ><small>어학원 · 전문학교 · 대학</small></span
+                          >
+                        </div>
+                        <div class="opt">
+                          <span
+                            class="ico"
+                            style="background: var(--butter-soft)"
+                            >💼</span
+                          >
+                          <span
+                            ><strong>취업</strong
+                            ><small>기술 · 인문지식 · 국제업무</small></span
+                          >
+                        </div>
+                        <div class="field">📍 지역<span></span>도쿄</div>
+                        <div class="field">
+                          ✈️ 출국일<span></span>2026.04.12
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- SCREEN 2 · 정착 가이드 -->
+                    <div class="scr">
+                      <div class="status">
+                        <span>9:41</span
+                        ><span class="dots"
+                          ><span></span><span></span><span></span
+                        ></span>
+                      </div>
+                      <div class="scr-body">
+                        <span class="tag">정착 가이드</span>
+                        <h4>입국 직후에 할 일</h4>
+                        <p class="scr-sub">현재 단계 · 총 8개 항목</p>
+                        <div class="segs">
+                          <i>출국전</i><i class="on">입국직후</i><i>초기정착</i
+                          ><i>귀국</i>
+                        </div>
+                        <div class="card-mini">
+                          <span class="tag" style="margin-bottom: 5px"
+                            >필수 · 14일 이내</span
+                          >
+                          <span class="todo"
+                            ><span style="flex: 1"
+                              ><span class="t">전입신고 (転入届)</span>
+                              <span class="s"
+                                >구약소 · 약 40분 · 재류카드 지참</span
+                              ></span
+                            ></span
+                          >
+                          <div class="map"><span class="pin"></span></div>
+                        </div>
+                        <div class="card-mini todo">
+                          <span class="tick"
+                            ><svg><use href="#check" /></svg
+                          ></span>
+                          <span
+                            ><span class="t">마이넘버 카드 신청</span
+                            ><span class="s">전입신고와 같은 창구</span></span
+                          >
+                        </div>
+                        <div class="card-mini todo">
+                          <span class="tick"
+                            ><svg><use href="#check" /></svg
+                          ></span>
+                          <span
+                            ><span class="t">국민건강보험 가입</span
+                            ><span class="s"
+                              >가입일 기준으로 소급 적용</span
+                            ></span
+                          >
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- SCREEN 3 · 일정 -->
+                    <div class="scr">
+                      <div class="status">
+                        <span>9:41</span
+                        ><span class="dots"
+                          ><span></span><span></span><span></span
+                        ></span>
+                      </div>
+                      <div class="scr-body">
+                        <span class="tag s">일정</span>
+                        <h4>4월 셋째 주</h4>
+                        <p class="scr-sub">마감 임박 2건 · 완료 5건</p>
+                        <div class="cal">
+                          <i>월<b>13</b></i
+                          ><i class="on">화<b>14</b></i
+                          ><i>수<b>15</b></i
+                          ><i>목<b>16</b></i
+                          ><i>금<b>17</b></i>
+                        </div>
+                        <span class="tag c">🔔 마감 임박</span>
+                        <div class="card-mini todo">
+                          <span class="tick"
+                            ><svg><use href="#check" /></svg
+                          ></span>
+                          <span
+                            ><span class="t">국민건강보험 가입</span
+                            ><span class="s"
+                              >D-3 · 가이드에서 추가함</span
+                            ></span
+                          >
+                        </div>
+                        <div class="card-mini todo">
+                          <span class="tick"
+                            ><svg><use href="#check" /></svg
+                          ></span>
+                          <span
+                            ><span class="t">휴대폰 개통 (SIM 수령)</span
+                            ><span class="s"
+                              >D-5 · 직접 추가 · 메모 1</span
+                            ></span
+                          >
+                        </div>
+                        <span class="tag">완료</span>
+                        <div class="card-mini todo done">
+                          <span class="tick on"
+                            ><svg><use href="#check" /></svg
+                          ></span>
+                          <span><span class="t">전입신고 (転入届)</span></span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- SCREEN 4 · 홈 진행률 + 커뮤니티 -->
+                    <div class="scr">
+                      <div class="status">
+                        <span>9:41</span
+                        ><span class="dots"
+                          ><span></span><span></span><span></span
+                        ></span>
+                      </div>
+                      <div class="scr-body">
+                        <span class="tag">홈</span>
+                        <div class="ring-row" style="margin-top: 4px">
+                          <div class="ring">
+                            <svg viewBox="0 0 56 56">
+                              <circle
+                                cx="28"
+                                cy="28"
+                                r="23"
+                                fill="none"
+                                stroke="rgba(255,255,255,.28)"
+                                stroke-width="7"
+                              />
+                              <circle
+                                cx="28"
+                                cy="28"
+                                r="23"
+                                fill="none"
+                                stroke="#fff"
+                                stroke-width="7"
+                                stroke-linecap="round"
+                                stroke-dasharray="144.5"
+                                stroke-dashoffset="30"
+                              /></svg
+                            ><b>79%</b>
+                          </div>
+                          <div>
+                            <h5>정착 진행률 +17%</h5>
+                            <p>초기 정착 · 남은 항목 5개</p>
+                          </div>
+                        </div>
+                        <div class="card-mini todo done">
+                          <span class="tick on"
+                            ><svg><use href="#check" /></svg
+                          ></span>
+                          <span
+                            ><span class="t">국민건강보험 가입</span
+                            ><span class="s">방금 완료했어요 🎉</span></span
+                          >
+                        </div>
+                        <span class="tag y">💬 커뮤니티 · 도쿄</span>
+                        <div class="post">
+                          <span class="pt"
+                            >쉐어하우스 계약할 때 이건 꼭 확인하세요</span
+                          >
+                          <span class="pm"
+                            ><span>초기 정착</span><span>💬 24</span
+                            ><span>2시간 전</span></span
+                          >
+                        </div>
+                        <div class="post">
+                          <span class="pt"
+                            >구약소 갔다 왔는데 대기 시간 팁 공유합니다</span
+                          >
+                          <span class="pm"
+                            ><span>입국 직후</span><span>💬 11</span
+                            ><span>어제</span></span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= FAQ ================= -->
+      <section class="faq" id="faq">
+        <div class="wrap">
+          <div class="sec-head">
+            <span class="eyebrow" data-rv
+              ><svg><use href="#clover" /></svg>FAQ</span
+            >
+            <h2 data-rv style="transition-delay: 0.06s">자주 묻는 질문</h2>
+          </div>
+          <div class="faq-list">
+            <div class="q" data-rv style="transition-delay: 0.12s">
+              <button type="button">
+                <span class="qmark">Q</span>이미 일본에 살고 있어도 도움이
+                되나요?<span class="plus"></span>
+              </button>
+              <div class="a">
+                <p>
+                  물론입니다. 정착 프로필에서 ‘초기 정착’이나 ‘귀국 준비’ 단계를
+                  선택하면 그 시점부터 시작할 수 있어요. 이사, 재류기간 갱신,
+                  귀국 시 행정 정리 가이드도 함께 담고 있습니다.
+                </p>
+              </div>
+            </div>
+            <div class="q" data-rv style="transition-delay: 0.18s">
+              <button type="button">
+                <span class="qmark">Q</span>지역 정보는 어디까지
+                지원하나요?<span class="plus"></span>
+              </button>
+              <div class="a">
+                <p>
+                  현재 도쿄 · 오사카 · 교토 · 나고야 · 후쿠오카 등 12개 도시의
+                  구약소 위치, 쓰레기 분리배출, 교통 정보를 지원합니다. 지원
+                  지역은 순차적으로 넓혀 갈 예정이에요.
+                </p>
+              </div>
+            </div>
+            <div class="q" data-rv style="transition-delay: 0.24s">
+              <button type="button">
+                <span class="qmark">Q</span>정보가 최신인지 어떻게
+                확인하나요?<span class="plus"></span>
+              </button>
+              <div class="a">
+                <p>
+                  각 가이드 하단에 최종 업데이트 날짜와 참고한 공식 기관을
+                  표기합니다. 제도가 바뀌면 알림으로 안내해 드리고, 커뮤니티를
+                  통한 사용자 제보도 함께 반영하고 있어요.
+                </p>
+              </div>
+            </div>
+            <div class="q" data-rv>
+              <button type="button">
+                <span class="qmark">Q</span>스마트폰을 바꿨는데 기존 데이터를
+                이어받을 수 있나요? <span class="plus"></span>
+              </button>
+              <div class="a">
+                <p>
+                  네, 기존에 사용하시던 계정 (이메일 또는 소셜 로그인) 그대로
+                  로그인하시면 대부분의 데이터가 자동으로 동기화됩니다.
+                </p>
+              </div>
+            </div>
+            <div class="q" data-rv style="transition-delay: 0.06s">
+              <button type="button">
+                <span class="qmark">Q</span>서비스 이용 중 불편한 점이나 제안은
+                어디로 보내나요?<span class="plus"></span>
+              </button>
+              <div class="a">
+                <p>
+                  앱 내 ‘문의하기’ 메뉴를 통해 보내주시면, 담당자가 확인 후
+                  답변을 드립니다. 또한, 커뮤니티 게시판에서도 사용자 의견을
+                  수집하고 있으니 자유롭게 의견을 남겨주세요.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= CTA ================= -->
+      <section class="cta-sec" id="download">
+        <div class="wrap">
+          <div class="cta-box" data-rv="zoom">
+            <div class="cta-copy">
+              <h2>새로운 시작에,<br />작은 행운을 더해 보세요</h2>
+              <p>
+                정착 프로필 설정에 1분. 남은 건 Ðoil이 순서대로 챙겨 드립니다.
+              </p>
+            </div>
+            <div class="cta-act">
+              <div class="stores">
+                <a href="#" class="store" aria-label="App Store에서 다운로드">
+                  <span class="si"
+                    ><svg><use href="#dl" /></svg
+                  ></span>
+                  <span class="st"><b>App Store</b></span>
+                </a>
+                <a
+                  href="#"
+                  class="store light"
+                  aria-label="Google Play에서 다운로드"
+                >
+                  <span class="si"
+                    ><svg><use href="#dl" /></svg
+                  ></span>
+                  <span class="st"><b>Google Play</b></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= FOOTER ================= -->
+      <footer>
+        <div class="wrap">
+          <div class="f-top">
+            <div class="f-logo">
+              <!-- 로고가 들어갈 부분 · 화이트/아이보리 버전 · 높이 50px -->
+              <img
+                class="brand-logo"
+                src="./logo/sub_logo_darkgreen.svg"
+                alt="Ðoil"
+              />
+            </div>
+            <nav class="f-nav">
+              <a href="#about">브랜드 소개</a>
+              <a href="#features">주요 기능</a>
+              <a href="#how">이용 방법</a>
+              <a href="#download">앱 다운로드</a>
+            </nav>
+          </div>
+          <div class="f-bot">
+            <span>© <span id="yr">2026</span> Ðoil. All rights reserved.</span>
+            <span>Made with a little luck 🍀</span>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

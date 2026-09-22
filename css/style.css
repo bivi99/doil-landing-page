@@ -1,0 +1,652 @@
+/* ==========================================================================
+   Ðoil — A Lucky Guide for Your New Life in Japan
+   style.css
+
+   목차
+   01. 폰트 (Pretendard + Quicksand)
+   02. 디자인 토큰 (:root)
+   03. 리셋 / 공통
+   04. 스크롤 진행 바
+   05. 헤더 내비게이션
+   06. 버튼 / 스토어 버튼
+   07. 장식 요소 · 스크롤 등장 애니메이션
+   08. 섹션 헤드
+   09. HERO
+   10. 폰 목업 (앱 화면 공통)
+   11. 마퀴 배너
+   12. ABOUT
+   13. FEATURES (벤토 그리드)
+   14. HOW TO USE (스크롤 연동 스텝)
+   15. FAQ
+   16. CTA
+   17. FOOTER
+   18. 반응형
+   ========================================================================== */
+
+/*  Base type : Pretendard   ·   Logo type : Tropiland (푸터 로고)
+    Color     : #3A9A3E 잎사귀 그린 · #FFFFFF · #FFFBF2 크림            */
+
+/* ===== 01. 폰트 ==========================================================
+   이 페이지의 서체 체계는 세 층입니다.
+
+     Pretendard  기본 · 한글 본문 · UI · 작은 글씨 전부        (--font)
+     Quicksand   영문 · 숫자 액센트만                          (--font-en)
+     Tropiland   로고 전용 — 이제 로고가 .svg 이미지라 CSS 불필요
+
+   두 서체 모두 index.html 의 <link> 로 불러옵니다.
+
+   ※ Quicksand 를 빼고 Pretendard 하나로 통일하고 싶으시면
+     아래 --font-en 값을 var(--font) 로만 바꾸면 전부 되돌아갑니다.
+   ======================================================================== */
+
+/* Tropiland 를 CSS 텍스트로도 쓰고 싶으실 때만 아래 주석을 해제하세요.
+   (폰트 파일을 assets/fonts/ 에 넣어야 하며, font-family 이름에 공백이 들어가면
+    --font-logo 와 이름이 달라져 적용되지 않습니다 → 'Tropiland' 붙여쓰기)
+@font-face{
+  font-family:'Tropiland';
+  src:url('../assets/fonts/Tropiland.woff2') format('woff2'),
+      url('../assets/fonts/Tropiland.woff')  format('woff'),
+      url('../assets/fonts/Tropiland.otf')   format('opentype');
+  font-weight:400 900;font-style:normal;font-display:swap;
+}
+*/
+
+/* ===== 02. 디자인 토큰 ===================================================
+   색·라운드·그림자·이징을 전부 여기서 관리합니다. 값 하나만 바꾸면 전체 반영.
+   ======================================================================== */
+:root{
+  /* main */
+  --green:#3A9A3E;
+  --white:#FFFFFF;
+  --ivory:#FFFBF2;
+  /* derived */
+  --green-hi:#55B45A;
+  --green-deep:#2A7A2E;
+  --green-ink:#14361B;
+  --mint:#E7F5E7;
+  --mint-2:#CBE6CC;
+  --ivory-2:#FFF6E4;
+  /* accents */
+  --butter:#FFCF5C;
+  --butter-soft:#FFF2D2;
+  --coral:#FF8F6B;
+  --coral-soft:#FFE5DA;
+  --sky:#6FC6EE;
+  --sky-soft:#DCF1FA;
+  /* text */
+  --ink:#1E2A1D;
+  --muted:#6B776B;
+  --line:rgba(30,42,29,.09);
+
+  --font:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,system-ui,
+         'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;
+  /* 영문·숫자 액센트. Pretendard 하나로 통일하려면 이 값을 var(--font) 로 바꾸세요 */
+  --font-en:'Quicksand',var(--font);
+  /* 로고용(현재 로고는 .svg 이미지라 미사용) */
+  --font-logo:'Tropiland','Pretendard Variable',Pretendard,sans-serif;
+
+  --r-s:14px; --r-m:20px; --r-l:28px; --r-xl:40px;
+  --sh-s:0 2px 10px rgba(20,54,27,.05);
+  --sh-m:0 12px 30px rgba(20,54,27,.08);
+  --sh-l:0 28px 66px rgba(20,54,27,.14);
+  --ease:cubic-bezier(.22,1,.36,1);
+  --bounce:cubic-bezier(.34,1.56,.64,1);
+  --nav-h:78px;
+  --max:1200px;
+}
+
+/* ===== 03. 리셋 / 공통 =================================================== */
+*,*::before,*::after{box-sizing:border-box}
+html{overflow-x:clip;scroll-behavior:smooth;scroll-padding-top:96px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;font-family:var(--font);color:var(--ink);background:var(--ivory);
+  line-height:1.72;letter-spacing:-.019em;font-weight:500;overflow-x:clip;
+  word-break:keep-all;overflow-wrap:break-word;
+  -webkit-font-smoothing:antialiased;
+}
+/* 미세 그레인 */
+body::after{
+  content:"";position:fixed;inset:0;z-index:500;pointer-events:none;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;border:0;background:none;cursor:pointer;color:inherit}
+h1,h2,h3,h4,h5{margin:0;line-height:1.24;letter-spacing:-.042em;font-weight:800;text-wrap:balance}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 24px}
+.logo-type{font-family:var(--font-logo);font-weight:400;letter-spacing:.005em}
+
+/* ===== 04. 스크롤 진행 바 ================================================ */
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:300;pointer-events:none}
+.progress i{display:block;height:100%;width:0;border-radius:0 3px 3px 0;
+  background:linear-gradient(90deg,var(--green),var(--green-hi) 60%,var(--butter));transition:width .1s linear}
+
+/* ===== 05. 헤더 내비게이션 ===============================================
+   상단에서는 투명, 스크롤하면 크림 블러 바로 전환됩니다.
+   ======================================================================== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);
+  border-radius:0 0 26px 26px;background:transparent;
+  transition:height .4s var(--ease),background .4s var(--ease),box-shadow .4s var(--ease)}
+.nav .bar{width:100%;max-width:var(--max);margin:0 auto;height:100%;
+  display:flex;align-items:center;gap:18px;padding:0 24px}
+.nav.is-stuck{height:66px;background:rgba(255,251,242,.84);
+  backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);
+  box-shadow:0 10px 32px rgba(20,54,27,.07)}
+/* --- 브랜드 로고 ----------------------------------------------------------
+   심볼 + 워드마크를 합친 가로형 로고 .svg 한 장을 씁니다.
+   간격·정렬은 SVG 파일 안에서 이미 확정돼 있으므로 여기서는 height 만 조절합니다.
+   ★ width 는 반드시 auto — height 와 함께 주면 로고가 찌그러집니다.
+
+   필요한 파일 2종
+     doil-logo-green.svg   헤더·본문용 (크림/흰 배경 위)
+     doil-logo-white.svg   푸터용      (다크 배경 위)
+   ------------------------------------------------------------------------ */
+.nav a.brand{margin-right:auto;display:flex;align-items:center}
+
+.brand-logo{height:50px;width:auto;display:block;   /* 로고 자리 */
+  transition:transform .55s var(--bounce),height .4s var(--ease)}
+.nav a.brand:hover .brand-logo{transform:scale(1.04)}
+
+/* 스크롤해서 바가 줄어들면 로고도 같이 축소 */
+.nav.is-stuck .brand-logo{height:40px}
+
+/* --- 스퀘어클 심볼 배지 ---------------------------------------------------
+   앱 아이콘 형태의 배지입니다. 현재 헤더·푸터는 가로형 로고를 쓰므로
+   이 클래스는 쓰이지 않지만, 심볼 단독 배지가 필요할 때를 위해 남겨 둡니다.
+   (히어로 마스코트는 .mascot, 앱 목업 프로필은 .scr-top .av 가 따로 담당)
+   ------------------------------------------------------------------------ */
+.mark{width:44px;height:44px;flex:none;border-radius:14px;background:var(--green);display:grid;place-items:center;
+  overflow:hidden;box-shadow:0 6px 16px rgba(58,154,62,.28);
+  transition:transform .55s var(--bounce)}
+.mark > svg,
+.mark > img{width:30px;height:30px;object-fit:contain}
+.nav nav{display:flex;gap:2px}
+.nav nav a{padding:9px 15px;border-radius:999px;font-size:14.5px;font-weight:600;color:var(--muted);
+  transition:color .25s,background .25s,transform .3s var(--bounce)}
+.nav nav a:hover{color:var(--green-deep);background:var(--mint);transform:translateY(-2px)}
+
+/* ===== 06-1. 버튼 ======================================================== */
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:14px 26px;border-radius:999px;font-weight:700;font-size:15px;white-space:nowrap;letter-spacing:-.02em;
+  transition:transform .35s var(--bounce),box-shadow .35s var(--ease),background .3s}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-p{background:var(--green);color:#fff;box-shadow:0 8px 22px rgba(58,154,62,.3)}
+.btn-p:hover{background:var(--green-hi);transform:translateY(-3px) scale(1.03);box-shadow:0 16px 34px rgba(58,154,62,.38)}
+.btn-p:active{transform:translateY(0) scale(.97)}
+.btn-g{background:#fff;color:var(--green-deep);box-shadow:var(--sh-s),inset 0 0 0 1.6px var(--mint-2)}
+.btn-g:hover{transform:translateY(-3px) scale(1.03);box-shadow:var(--sh-m),inset 0 0 0 1.6px var(--green)}
+.btn-sm{padding:11px 20px;font-size:14px}
+.ripple{position:absolute;border-radius:50%;transform:scale(0);background:rgba(255,255,255,.4);
+  animation:ripple .6s var(--ease) forwards;pointer-events:none}
+.btn-g .ripple,.btn-w .ripple,.store.light .ripple{background:rgba(58,154,62,.18)}
+@keyframes ripple{to{transform:scale(3.2);opacity:0}}
+
+/* ===== 06-2. 스토어 다운로드 버튼 ========================================= */
+.stores{display:flex;flex-wrap:wrap;gap:11px}
+.store{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:12px;
+  padding:10px 26px 10px 11px;border-radius:999px;background:var(--green);color:#fff;
+  box-shadow:0 10px 24px rgba(58,154,62,.3);
+  transition:transform .35s var(--bounce),box-shadow .35s var(--ease),background .3s}
+.store:hover{background:var(--green-hi);transform:translateY(-4px) scale(1.03);
+  box-shadow:0 18px 36px rgba(58,154,62,.38)}
+.store:active{transform:translateY(0) scale(.97)}
+.store.light{background:#fff;color:var(--green-ink);
+  box-shadow:var(--sh-s),inset 0 0 0 1.8px var(--mint-2)}
+.store.light:hover{background:#fff;box-shadow:var(--sh-m),inset 0 0 0 1.8px var(--green)}
+.store .si{width:36px;height:36px;flex:none;display:grid;place-items:center;border-radius:50%;
+  background:rgba(255,255,255,.22)}
+.store.light .si{background:var(--mint);color:var(--green)}
+.store .si svg{width:18px;height:18px}
+.store .st{display:flex;flex-direction:column;line-height:1.18;text-align:left}
+.store .st small{font-size:10px;font-weight:600;opacity:.7;letter-spacing:.03em}
+.store .st b{font-family:var(--font-en);font-size:15.5px;font-weight:700;letter-spacing:-.01em}
+
+/* ===== 07. 장식 클로버 · 스크롤 등장 애니메이션 =========================== */
+.deco{position:absolute;pointer-events:none;z-index:0;height:auto;aspect-ratio:1}
+.float{animation:float 8s ease-in-out infinite}
+.float.d1{animation-duration:10s;animation-delay:-3s}
+.float.d2{animation-duration:12.5s;animation-delay:-6s}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-24px) rotate(10deg)}}
+[data-rv]{opacity:0;transform:translateY(32px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
+[data-rv].in{opacity:1;transform:none}
+[data-rv="zoom"]{transform:scale(.92)}
+[data-rv="zoom"].in{transform:none}
+[data-rv="left"]{transform:translateX(-32px)}
+[data-rv="left"].in{transform:none}
+
+/* ===== 08. 섹션 헤드 ===================================================== */
+.eyebrow{font-family:var(--font-en);display:inline-flex;align-items:center;gap:8px;padding:7px 16px 7px 9px;border-radius:999px;
+  background:var(--mint);color:var(--green-deep);font-size:12.5px;font-weight:700;letter-spacing:.04em}
+.eyebrow svg{width:18px;height:18px;color:var(--green)}
+.sec-head{text-align:center;max-width:700px;margin:0 auto 56px}
+.sec-head h2{font-size:clamp(30px,5vw,50px);margin:20px 0 16px;font-weight:800}
+.sec-head p{color:var(--muted);font-size:16px;font-weight:500}
+.hl{position:relative;display:inline-block;color:var(--green)}
+.hl::after{content:"";position:absolute;left:-3%;right:-3%;bottom:4%;height:34%;border-radius:8px;
+  background:var(--butter-soft);z-index:-1}
+
+/* ===== 09. HERO ========================================================= */
+.hero{position:relative;padding:calc(var(--nav-h) + 74px) 0 96px;
+  background:
+    radial-gradient(950px 560px at 88% -12%,var(--mint) 0%,transparent 60%),
+    radial-gradient(720px 480px at -6% 34%,var(--ivory-2) 0%,transparent 58%),
+    var(--ivory)}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.06fr .94fr;gap:44px;align-items:center}
+.hero h1{font-size:clamp(34px,5.2vw,58px);line-height:1.5;margin:20px 0 20px;font-weight:800}
+.hero h1 em{font-style:normal;color:var(--green)}
+.hero .lead{color:var(--muted);font-size:clamp(15px,1.6vw,17.5px);max-width:460px;font-weight:500}
+.hero .stores{margin:32px 0 16px}
+.hero .free{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted);font-weight:600}
+.hero .free svg{width:15px;height:15px;color:var(--green)}
+.hero .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.chip{display:inline-flex;align-items:center;gap:7px;background:#fff;border-radius:999px;padding:8px 15px;
+  font-size:13px;font-weight:600;color:var(--green-ink);box-shadow:var(--sh-s);transition:transform .3s var(--bounce)}
+.chip:hover{transform:translateY(-3px)}
+.chip b{font-family:var(--font-en);color:var(--green-deep);font-weight:700}
+.chip i{width:7px;height:7px;border-radius:50%;background:var(--green);display:block}
+
+.hero-visual{position:relative;display:grid;place-items:center;min-height:560px}
+.blob{position:absolute;width:440px;height:440px;border-radius:44% 56% 52% 48%/48% 44% 56% 52%;
+  background:linear-gradient(150deg,var(--green-hi),var(--green));opacity:.14;animation:morph 15s ease-in-out infinite}
+@keyframes morph{0%,100%{border-radius:44% 56% 52% 48%/48% 44% 56% 52%;transform:rotate(0) scale(1)}
+  50%{border-radius:57% 43% 46% 54%/52% 59% 41% 48%;transform:rotate(15deg) scale(1.07)}}
+.mascot{position:absolute;top:4%;left:-1%;width:106px;height:106px;border-radius:32px;background:var(--green);
+  display:grid;place-items:center;box-shadow:0 22px 46px rgba(58,154,62,.32);z-index:3;animation:bob 5.5s ease-in-out infinite}
+.mascot > svg,
+.mascot > img{width:72px;height:72px}   /* 로고 자리 */
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-16px) rotate(5deg)}}
+.speech{position:absolute;top:1%;right:-1%;background:#fff;border-radius:20px 20px 20px 6px;padding:11px 17px;
+  font-size:13.5px;font-weight:700;color:var(--green-deep);box-shadow:var(--sh-m);z-index:3;
+  animation:bob 6.5s ease-in-out infinite;animation-delay:-1.6s}
+.mouse{width:25px;height:40px;border-radius:999px;border:2.2px solid var(--green);position:relative;opacity:.7}
+.mouse::after{content:"";position:absolute;left:50%;top:7px;width:4.5px;height:9px;border-radius:99px;
+  background:var(--green);transform:translateX(-50%);animation:wheel 1.7s var(--ease) infinite}
+@keyframes wheel{0%{opacity:0;transform:translate(-50%,-4px)}30%,70%{opacity:1}100%{opacity:0;transform:translate(-50%,13px)}}
+
+/* ===== 10. 폰 목업 (앱 화면 공통 부품) ==================================== */
+.phone{position:relative;width:272px;flex:none;border-radius:44px;background:#151F13;padding:9px;
+  box-shadow:0 34px 78px rgba(20,54,27,.28),0 0 0 1px rgba(0,0,0,.06);z-index:2}
+.phone::before{content:"";position:absolute;top:18px;left:50%;transform:translateX(-50%);width:76px;height:19px;
+  border-radius:999px;background:#151F13;z-index:5}
+.screen{position:relative;border-radius:36px;overflow:hidden;background:var(--ivory);height:552px;
+  display:flex;flex-direction:column;color:var(--ink);text-align:left;letter-spacing:-.02em}
+.status{font-family:var(--font-en);display:flex;justify-content:space-between;align-items:center;padding:14px 20px 6px;font-size:11px;
+  font-weight:800;color:var(--green-ink)}
+.status .dots{display:flex;gap:3px;align-items:center}
+.status .dots span{width:4px;height:4px;border-radius:50%;background:var(--green-ink);opacity:.45}
+.scr-body{flex:1;padding:10px 17px 14px;overflow:hidden}
+.scr-top{display:flex;align-items:center;gap:9px;margin-bottom:13px}
+.scr-top .av{width:34px;height:34px;border-radius:12px;background:var(--green);display:grid;place-items:center;flex:none}
+.scr-top .av > svg,
+.scr-top .av > img{width:22px;height:22px}   /* 로고 자리 */
+.scr-top small{display:block;font-size:10.5px;color:var(--muted);font-weight:600;line-height:1.4}
+.scr-top strong{display:block;font-size:14px;line-height:1.4;font-weight:800}
+.scr h4{font-size:15.5px;font-weight:800;margin:5px 0 4px}
+.scr-sub{font-size:10.5px;color:var(--muted);font-weight:600;margin-bottom:12px}
+
+.card-mini{background:#fff;border-radius:16px;padding:12px 13px;box-shadow:var(--sh-s);margin-bottom:8px}
+.ring-row{display:flex;align-items:center;gap:13px;background:linear-gradient(140deg,var(--green-deep),var(--green) 55%,var(--green-hi));
+  border-radius:20px;padding:14px;color:#fff;margin-bottom:10px}
+.ring{width:56px;height:56px;flex:none;position:relative;display:grid;place-items:center}
+.ring svg{position:absolute;inset:0;width:56px;height:56px;transform:rotate(-90deg)}
+.ring b{font-family:var(--font-en);font-size:15px;font-weight:700;position:relative}
+.ring-row p{font-size:10.5px;opacity:.88;line-height:1.5;font-weight:500}
+.ring-row h5{margin:0 0 3px;font-size:13px;font-weight:800}
+
+.todo{display:flex;align-items:flex-start;gap:10px}
+.tick{width:19px;height:19px;border-radius:7px;flex:none;margin-top:2px;display:grid;place-items:center;
+  background:var(--mint);box-shadow:inset 0 0 0 1.8px var(--mint-2)}
+.tick.on{background:var(--green);box-shadow:none}
+.tick svg{width:11px;height:11px;color:#fff;opacity:0}
+.tick.on svg{opacity:1}
+.todo .t{display:block;font-size:12px;font-weight:700;line-height:1.45}
+.todo .s{display:block;font-size:10px;color:var(--muted);font-weight:600}
+.todo.done .t{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--mint-2)}
+.tag{display:inline-block;font-size:9.5px;font-weight:800;padding:3px 8px;border-radius:999px;
+  background:var(--mint);color:var(--green-deep);margin-bottom:7px;letter-spacing:0}
+.tag.y{background:var(--butter-soft);color:#8A6100}
+.tag.c{background:var(--coral-soft);color:#9C4522}
+.tag.s{background:var(--sky-soft);color:#1B637F}
+
+.opt{display:flex;align-items:center;gap:10px;background:#fff;border-radius:16px;padding:11px 12px;margin-bottom:8px;
+  box-shadow:var(--sh-s);transition:.3s}
+.opt .ico{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;flex:none;font-size:16px}
+.opt strong{font-size:12.5px;display:block;line-height:1.4;font-weight:800}
+.opt small{font-size:10px;color:var(--muted);font-weight:600}
+.opt.sel{box-shadow:0 0 0 2px var(--green),var(--sh-m)}
+.opt.sel::after{content:"";width:16px;height:16px;border-radius:50%;background:var(--green);margin-left:auto;flex:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-size:11px;background-repeat:no-repeat;background-position:center}
+
+.field{display:flex;align-items:center;gap:8px;background:#fff;border-radius:14px;padding:10px 12px;margin-bottom:7px;
+  box-shadow:var(--sh-s);font-size:11.5px;font-weight:700}
+.field span{color:var(--muted);font-weight:600;font-size:10px;margin-right:auto}
+
+.segs{display:flex;gap:5px;margin-bottom:11px;background:var(--mint);border-radius:12px;padding:3px}
+.segs i{flex:1;text-align:center;white-space:nowrap;font-size:9.5px;font-weight:700;padding:6px 0;border-radius:9px;
+  color:var(--green-deep);font-style:normal;letter-spacing:-.03em}
+.segs i.on{background:#fff;color:var(--ink);box-shadow:var(--sh-s)}
+
+.cal{display:flex;gap:5px;margin-bottom:10px}
+.cal i{flex:1;font-style:normal;text-align:center;border-radius:12px;padding:7px 0 8px;background:#fff;
+  box-shadow:var(--sh-s);font-size:9px;font-weight:700;color:var(--muted);line-height:1.5}
+.cal i b{font-family:var(--font-en);display:block;font-size:12.5px;color:var(--ink);font-weight:700}
+.cal i.on{background:var(--green);color:rgba(255,255,255,.8)}
+.cal i.on b{color:#fff}
+
+.post{background:#fff;border-radius:16px;padding:11px 12px;box-shadow:var(--sh-s);margin-bottom:8px}
+.post .pt{font-size:11.5px;font-weight:700;line-height:1.5}
+.post .pm{display:flex;gap:9px;margin-top:6px;font-size:9.5px;color:var(--muted);font-weight:600}
+
+.map{height:70px;border-radius:14px;margin-top:9px;position:relative;overflow:hidden;
+  background:linear-gradient(180deg,#EAF5EA,#DAEDDB)}
+.map::before{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 46%,rgba(255,255,255,.92) 46%,rgba(255,255,255,.92) 53%,transparent 53%),
+             linear-gradient(180deg,transparent 55%,rgba(255,255,255,.92) 55%,rgba(255,255,255,.92) 62%,transparent 62%)}
+.pin{position:absolute;left:44%;top:32%;width:19px;height:19px;border-radius:50% 50% 50% 4px;background:var(--coral);
+  transform:rotate(-45deg);box-shadow:0 4px 10px rgba(255,143,107,.5);animation:pin 1.8s ease-in-out infinite}
+@keyframes pin{0%,100%{transform:rotate(-45deg) translateY(0)}50%{transform:rotate(-45deg) translateY(-6px)}}
+
+/* ===== 11. 마퀴 배너 ===================================================== */
+/* A. 아이보리 슬림 — 배경색 없이 헤어라인 두 줄, 넓은 트래킹 */
+.marquee{
+  position:relative;
+  overflow:hidden;
+  background:var(--green);
+  padding:17px 0;
+  /* 배경을 초록으로 바꾸셨으므로 헤어라인도 흰색 계열로 (어두운 선은 얼룩처럼 보입니다) */
+  border-top:1px solid rgba(255,255,255,.14);
+  border-bottom:1px solid rgba(255,255,255,.14);
+  /* 양 끝을 투명하게 깎아 글자가 칼로 자른 듯 끊기지 않게 */
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+          mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+}
+.mq-track{
+  display:flex;
+  width:max-content;                     /* ← 필수. 내용만큼 가로로 늘어나게 */
+  animation:mq 42s linear infinite;      /* ← 이 줄이 빠지면 안 움직입니다 */
+}
+
+.mq-track .set{display:flex;align-items:center;gap:52px;padding-right:52px}
+.mq-track .set em{font-style:normal;font-family:var(--font-en);
+  font-size:12.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--white);white-space:nowrap}
+.mq-track .set svg{width:11px;height:11px;color:var(--white);opacity:.55;flex:none}
+
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ===== 12. ABOUT ======================================================== */
+.about{padding:112px 0 104px;position:relative}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.about-copy h2{font-size:clamp(28px,4.2vw,44px);margin:20px 0 22px;line-height:1.28;font-weight:800}
+.about-copy p{color:var(--muted);font-size:16px;font-weight:500}
+.about-copy p+p{margin-top:15px}
+.about-copy strong{color:var(--green-deep);font-weight:800}
+.pillars{display:grid;gap:13px}
+.pillar{display:flex;gap:16px;align-items:flex-start;background:#fff;border-radius:var(--r-l);padding:22px 24px;
+  box-shadow:var(--sh-s);transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.pillar:hover{transform:translateX(8px);box-shadow:var(--sh-m)}
+.pillar .n{width:44px;height:44px;flex:none;border-radius:15px;display:grid;place-items:center;
+  font-weight:800;font-size:16px;color:#fff;background:var(--green)}
+.pillar:nth-child(2) .n{background:var(--butter);color:#7A5400}
+.pillar:nth-child(3) .n{background:var(--coral)}
+.pillar h4{font-size:16.5px;margin-bottom:5px}
+.pillar p{font-size:13.5px;color:var(--muted);line-height:1.7;font-weight:500}
+
+/* ===== 13. FEATURES — 벤토 그리드 ======================================== */
+.features{padding:100px 0 112px;background:linear-gradient(180deg,var(--ivory),#F4FAF4 42%,var(--ivory));position:relative}
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.bx{position:relative;overflow:hidden;background:#fff;border-radius:var(--r-l);padding:26px;
+  box-shadow:var(--sh-s);transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.bx::after{content:"";position:absolute;right:-52px;bottom:-52px;width:140px;height:140px;border-radius:50%;
+  background:var(--tint,var(--mint));opacity:0;transform:scale(.4);
+  transition:opacity .5s var(--ease),transform .65s var(--bounce)}
+.bx:hover{transform:translateY(-9px);box-shadow:var(--sh-l)}
+.bx:hover::after{opacity:.6;transform:scale(1)}
+.bx>*{position:relative;z-index:1}
+.bx .nav-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.02em;
+  color:var(--green-deep);background:var(--mint);padding:5px 11px;border-radius:999px;margin-bottom:14px}
+.bx .f-ico{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;background:var(--tint,var(--mint));
+  margin-bottom:16px;transition:transform .6s var(--bounce)}
+.bx .f-ico svg{width:27px;height:27px;color:var(--ic,var(--green-deep))}
+/* .bx:hover .f-ico{transform:rotate(-10deg) scale(1.1)} */
+.bx h3{font-size:19px;margin-bottom:8px;font-weight:800}
+.bx p{font-size:13.8px;color:var(--muted);line-height:1.72;font-weight:500}
+.bx .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:15px}
+.bx .meta span{font-size:11.5px;font-weight:700;color:var(--green-deep);background:var(--mint);
+  padding:5px 11px;border-radius:999px}
+.bx.wide{grid-column:span 2}
+.bx.hero-b{background:linear-gradient(140deg,var(--green-deep),var(--green) 60%,var(--green-hi));color:#fff}
+.bx.hero-b p{color:rgba(255,255,255,.8)}
+.bx.hero-b .nav-badge{background:rgba(255,255,255,.16);color:#fff}
+.bx.hero-b .f-ico{background:rgba(255,255,255,.16)}
+.bx.hero-b .f-ico svg{color:#fff}
+.bx.hero-b .meta span{background:rgba(255,255,255,.14);color:#E9F7E9}
+.bx.hero-b::after{background:rgba(255,255,255,.14)}
+.bento-stat{display:flex;gap:10px;margin-top:18px}
+.bento-stat div{flex:1;background:rgba(255,255,255,.14);border-radius:16px;padding:12px 13px}
+.bento-stat b{font-family:var(--font-en);display:block;font-size:22px;font-weight:700;letter-spacing:-.02em}
+.bento-stat small{font-size:10.5px;opacity:.78;font-weight:600}
+.tagcloud{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+/* 클릭 가능한 요소가 아니라 '다루는 정보' 목록입니다.
+   호버 반응을 주면 버튼으로 오인되므로 전부 제거하고, 커서도 기본 화살표로 고정합니다. */
+.tagcloud span{font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:999px;
+  background:var(--ivory-2);color:var(--green-ink);cursor:default;
+  box-shadow:inset 0 0 0 1px rgba(30,42,29,.05)}
+
+/* ===== 14. HOW TO USE — 스크롤 연동 스텝 ================================= */
+.how{background:var(--green-ink);color:#fff;position:relative}
+.how::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(760px 420px at 14% 8%,rgba(85,180,90,.3),transparent 62%),
+             radial-gradient(620px 420px at 88% 84%,rgba(255,207,92,.14),transparent 60%)}
+.how-track{position:relative;z-index:1}
+.how-sticky{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;overflow:hidden}
+.how-inner{width:100%;max-width:var(--max);margin:0 auto;padding:0 24px;
+  display:grid;grid-template-columns:1fr 304px;gap:58px;align-items:center}
+.how-left .eyebrow{background:rgba(255,255,255,.12);color:#E9F7E9}
+.how-left .eyebrow svg{color:var(--butter)}
+.how-title{font-size:clamp(26px,3.6vw,38px);margin:18px 0 32px;font-weight:800}
+.rail{display:flex;gap:9px;margin-bottom:30px}
+.rail i{height:4px;flex:1;border-radius:99px;background:rgba(255,255,255,.16);overflow:hidden;position:relative}
+.rail i::after{content:"";position:absolute;inset:0;width:0;background:var(--butter);border-radius:99px;transition:width .45s var(--ease)}
+.rail i.done::after{width:100%}
+.rail i.act::after{width:var(--p,0)}
+.steps{position:relative;min-height:250px}
+.step{position:absolute;inset:0;opacity:0;transform:translateY(26px);pointer-events:none;
+  transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.step.act{opacity:1;transform:none;pointer-events:auto}
+.step .num{font-family:var(--font-en);display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:13.5px;color:var(--butter);
+  letter-spacing:.16em;margin-bottom:12px}
+.step .num s{width:32px;height:2px;background:var(--butter);opacity:.45;display:block}
+.step h3{font-size:clamp(23px,3vw,33px);margin-bottom:14px;line-height:1.32;font-weight:800}
+.step p{color:rgba(255,255,255,.72);font-size:15.5px;max-width:530px;line-height:1.78;font-weight:500}
+.step ul{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.step ul li{font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:999px;
+  background:rgba(255,255,255,.09);color:#DEF1DE;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.how-right{display:grid;place-items:center}
+.how-phone .screen{height:552px}
+.scr{position:absolute;inset:0;color:var(--ink);opacity:0;transform:translateY(22px) scale(.98);pointer-events:none;
+  transition:opacity .5s var(--ease),transform .6s var(--ease);background:var(--ivory);
+  display:flex;flex-direction:column;border-radius:36px;overflow:hidden}
+.scr.act{opacity:1;transform:none;pointer-events:auto}
+
+/* ===== 15. FAQ ========================================================== */
+.faq{padding:100px 0 112px}
+.faq-list{max-width:800px;margin:0 auto;display:grid;gap:11px}
+.q{background:#fff;border-radius:var(--r-m);box-shadow:var(--sh-s);overflow:hidden;transition:box-shadow .4s var(--ease)}
+.q.open{box-shadow:var(--sh-m)}
+.q button{width:100%;display:flex;align-items:center;gap:15px;padding:20px 24px;text-align:left;
+  font-size:16px;font-weight:700;line-height:1.5;letter-spacing:-.03em}
+.q .qmark{width:29px;height:29px;flex:none;border-radius:10px;background:var(--butter-soft);color:#8A6100;
+  display:grid;place-items:center;font-weight:800;font-size:14px}
+.q .plus{position:relative;margin-left:auto;width:29px;height:29px;flex:none;border-radius:50%;background:var(--mint);
+  display:grid;place-items:center;transition:transform .45s var(--bounce),background .3s}
+.q .plus::before,.q .plus::after{content:"";position:absolute;width:12px;height:2.4px;border-radius:9px;
+  background:var(--green-deep);transition:background .3s}
+.q .plus::after{transform:rotate(90deg)}
+.q.open .plus{background:var(--green);transform:rotate(135deg)}
+.q.open .plus::before,.q.open .plus::after{background:#fff}
+.q .a{max-height:0;overflow:hidden;transition:max-height .5s var(--ease)}
+.q .a p{padding:0 24px 22px 68px;color:var(--muted);font-size:14.5px;line-height:1.8;font-weight:500}
+
+/* ===== 16. CTA ========================================================== */
+/* 후반부를 닫는 슬림 밴드.
+   히어로 CTA는 "이런 앱이 있다", 여기는 "이제 시작해도 된다" — 역할을 구분합니다.
+   초록 풀블록 대신 흰 카드 한 장이라 앞의 초록 요소들과 무게가 겹치지 않습니다. */
+.cta-sec{padding:0 0 88px}
+.cta-box{position:relative;overflow:hidden;border-radius:32px;
+  display:flex;align-items:center;justify-content:space-between;gap:36px;flex-wrap:wrap;
+  padding:34px 40px;background:#fff;
+  box-shadow:var(--sh-m),inset 0 0 0 1.5px var(--mint-2)}
+/* 오른쪽 아래 민트 워터마크 — 브랜드 색을 아주 조금만 남깁니다 */
+.cta-box::after{content:"";position:absolute;right:-64px;bottom:-76px;width:224px;height:224px;
+  border-radius:50%;background:var(--mint);opacity:.55;pointer-events:none}
+.cta-box > *{position:relative;z-index:1}
+
+.cta-copy{flex:1 1 340px;min-width:270px}
+.cta-box h2{font-size:clamp(21px,2.5vw,29px);margin-bottom:9px;font-weight:800}
+.cta-box p{color:var(--muted);font-size:14.5px;font-weight:500}
+
+.cta-act{flex:none;text-align:right}
+.cta-box .stores{justify-content:flex-end}
+.cta-note{font-family:var(--font-en);margin-top:11px;font-size:12px;color:var(--muted);font-weight:500}
+
+
+/* ===== 17. FOOTER ======================================================= */
+/* 2행 구조 — 위: 로고 + 링크 한 줄 / 아래: 저작권 */
+footer{background:var(--green-ink);color:rgba(255,255,255,.6);
+  padding:38px 0 24px;font-size:13.5px;font-weight:500}
+
+.f-top{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;
+  padding-bottom:26px;border-bottom:1px solid rgba(255,255,255,.09)}
+
+.f-logo{display:flex;align-items:center;flex:none}
+.f-logo .brand-logo{height:50px}   /* 로고 자리 */
+
+.f-nav{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.f-nav a{padding:8px 14px;border-radius:999px;font-size:13.5px;font-weight:600;
+  color:rgba(255,255,255,.66);white-space:nowrap;
+  transition:color .25s,background .25s,transform .3s var(--bounce)}
+.f-nav a:hover{color:#fff;background:rgba(255,255,255,.09);transform:translateY(-2px)}
+
+.f-bot{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;
+  padding-top:18px;font-size:12.5px}
+.f-bot span:last-child{font-family:var(--font-en);opacity:.5}
+
+
+/* 이전 4단 푸터에서 쓰던 규칙들(.f-logo .word / .f-brand p / footer h5 / footer li)은
+   2행 구조로 바뀌면서 쓰이지 않아 삭제했습니다.
+   특히 아래쪽에 .f-bot 이 한 번 더 선언돼 있어서 위의 padding-top:18px 을
+   26px 로 덮어쓰고 있었습니다. */
+
+/* ===== 18. 반응형 ======================================================== */
+@media (max-width:1080px){
+  .bento{grid-template-columns:repeat(2,1fr)}
+  .bx.wide{grid-column:span 2}
+}
+@media (max-width:980px){
+  .hero .wrap{grid-template-columns:1fr;text-align:center}
+  .hero .lead{margin-left:auto;margin-right:auto}
+  .hero .stores,.hero .chips{justify-content:center}
+  .hero-visual{min-height:auto;margin-top:46px}
+  .mascot{left:2%;width:82px;height:82px;border-radius:26px}
+  .mascot > svg,
+  .mascot > img{width:56px;height:56px}   /* 로고 자리 */
+  .speech{right:0;font-size:12px}
+  .about-grid{grid-template-columns:1fr;gap:34px}
+  .f-top{gap:22px}
+  .how-inner{grid-template-columns:1fr;gap:22px;justify-items:center;text-align:center}
+  .how-left{order:1;width:100%}
+  .how-right{order:0}
+  .how-title{margin:14px 0 20px;font-size:22px}
+  .step p{margin:0 auto;font-size:14px}
+  .step ul{justify-content:center}
+  .steps{min-height:216px}
+  .rail{max-width:340px;margin:0 auto 22px}
+  .phone{width:224px;border-radius:38px}
+  .screen{height:444px}
+  .how-phone .screen{height:444px}
+  .scr{border-radius:30px}
+}
+@media (max-width:760px){
+  .deco{display:none}
+  .nav .bar{padding:0 18px}
+  .nav nav{display:none}
+  .brand-logo{height:29px}
+  .nav.is-stuck .brand-logo{height:27px}
+  .nav{border-radius:0 0 20px 20px}
+  .how-sticky{padding-top:64px}
+  .how-phone .screen{height:328px}
+  .hero{padding-top:calc(var(--nav-h) + 40px)}
+  .about,.features,.faq{padding:76px 0 82px}
+  .cta-box{padding:26px 22px;border-radius:26px;flex-direction:column;align-items:flex-start;gap:20px}
+  /* 세로 정렬에서 flex-basis(340px) 가 '높이'로 해석돼 빈 공간이 생기므로 해제 */
+  .cta-copy{flex:0 0 auto;min-width:0;width:100%}
+  .cta-act{text-align:left;width:100%}
+  .cta-box .stores{justify-content:flex-start;align-items:flex-start}
+  .cta-box h2 br{display:none}
+  .q button{padding:17px 18px;font-size:15px;gap:12px}
+  .q .a p{padding:0 18px 20px 46px}
+  footer{padding:32px 0 22px}
+  .f-top{flex-direction:column;align-items:flex-start;gap:14px;padding-bottom:20px}
+  .f-logo .brand-logo{height:40px}
+  .f-nav{gap:2px;margin-left:-14px}   /* pill 좌측 패딩 보정 */
+  .f-nav a{padding:7px 14px;font-size:13px}
+  .f-bot{padding-top:16px}
+  .mq-track .set{gap:38px;padding-right:38px}
+  .mq-track .set em{font-size:11.5px;letter-spacing:.18em}
+}
+@media (max-width:600px){
+  .bento{grid-template-columns:1fr}
+  .bx.wide{grid-column:span 1}
+  .phone{width:206px;padding:7px;border-radius:34px}
+  .screen{height:412px}
+  .how-phone .screen{height:320px}
+  .scr .scr-body{padding:6px 13px 10px}
+  .scr h4{font-size:13.5px;margin-bottom:3px}
+  .scr .scr-sub{font-size:9.5px;margin-bottom:8px}
+  .scr .tag{font-size:8.5px;padding:2px 7px;margin-bottom:5px}
+  .scr .card-mini{padding:9px 10px;margin-bottom:6px;border-radius:13px}
+  .scr .opt{padding:8px 10px;gap:8px;margin-bottom:6px;border-radius:13px}
+  .scr .opt .ico{width:27px;height:27px;border-radius:9px;font-size:13px}
+  .scr .opt strong{font-size:11px}
+  .scr .opt small{font-size:9px}
+  .scr .field{padding:8px 10px;font-size:10.5px;margin-bottom:5px;border-radius:11px}
+  .scr .todo .t{font-size:10.5px}
+  .scr .todo .s{font-size:9px}
+  .scr .ring-row{padding:10px;gap:10px;margin-bottom:8px}
+  .scr .post{padding:9px 10px;margin-bottom:6px;border-radius:13px}
+  .scr .post .pt{font-size:10.5px}
+  .scr .segs{margin-bottom:8px}
+  .scr .segs i{font-size:8.3px;padding:5px 0}
+  .scr .cal i{font-size:8px;padding:5px 0 6px}
+  .scr .cal i b{font-size:11px}
+  .steps{min-height:238px}
+  .step h3{font-size:19.5px;margin-bottom:9px}
+  .step p{font-size:13px;line-height:1.68}
+  .step ul{margin-top:12px;gap:6px}
+  .step ul li{font-size:11px;padding:5px 11px}
+  .step .num{font-size:11.5px;margin-bottom:8px}
+  .btn{padding:12px 20px}
+  .stores{flex-direction:column;align-items:center;width:100%}
+  .store{width:100%;max-width:250px;padding:9px 22px 9px 10px}
+  .store .si{width:33px;height:33px}
+}
+@media (max-width:760px) and (max-height:740px){
+  .how-sticky{padding-top:64px}
+  .how-phone .screen{height:272px}
+  .steps{min-height:180px}
+  .how-inner{gap:10px}
+  .how-title{font-size:18px;margin:8px 0 12px}
+  .rail{margin-bottom:16px}
+  .step p{font-size:12.5px;line-height:1.62}
+  .step h3{font-size:18px;margin-bottom:7px}
+  .step ul{margin-top:9px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important}
+  [data-rv]{opacity:1!important;transform:none!important}
+}
